@@ -25,6 +25,10 @@ router.post('/', async (req, res) => {
 
     res.status(201).json(newVote);
   } catch (error) {
+    // Handle duplicate phone_no (unique index) gracefully
+    if (error && (error.code === 11000 || error.name === 'MongoServerError')) {
+      return res.status(400).json({ message: 'This phone number has already been used to vote' });
+    }
     res.status(500).json({ message: 'Server Error' });
   }
 });

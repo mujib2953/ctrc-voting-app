@@ -21,9 +21,11 @@ const connectDB = async () => {
 };
 connectDB();
 
-// --- populatng initial participants (uncomment to use) ---
-const { addParticipants } = require('./populateData');
-addParticipants();
+// --- populating initial participants (uncomment to use) ---
+if (process.env.ADD_PARTICIPANTS === 'true') {
+  const { addParticipants } = require('./populateData');
+  addParticipants();
+}
 // --------------------------------------------------------
 
 
